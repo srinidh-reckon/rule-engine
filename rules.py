@@ -1,5 +1,6 @@
 import rule_engine
-
+import time
+from datetime import date
 # making sure the type is fixed
 def type_resolver(name):
     if name == 'title':
@@ -22,8 +23,10 @@ rule = rule_engine.Rule(
 
 # Create a rule with dyanmic functionality and it can acheived using f strings
 i = 4 
+attr = 'volume_number'
+
 rule1 = rule_engine.Rule(
-    f'volume_number.length > {i}'
+    f'{attr}.length > {i}'
     
 )
 
@@ -36,9 +39,12 @@ rule3 = rule_engine.Rule(
 )
 
 rule4 = rule_engine.Rule(
-    'publication_year == datetime.date.year'
+    'publication_year == datetime.year'
 )
 
+# rule_5 = rule_engine.Rule(
+#     ''
+# )
 
 # Check if the rule matches the JSON data
 data1 = {
@@ -51,7 +57,8 @@ data1 = {
     'publisher': 'JK Rowling',
     'issue' : 0,
     't_no_articles': None,
-    'volume_number': 'ejwhfje'
+    'volume_number': 'ejwhfje',
+    'publication_year': '01-01-2023'
 }
 data2 = {
     'first_name': 'Luke jeffery',
@@ -68,9 +75,8 @@ data2 = {
 # match1 = rule.matches(data1)
 # match2 = rule.matches(data2)
 
-match11 = rule2.matches(data1) # Checks for firstname length > 5 and the age < 10
+match11 = rule4.matches(data1) # Checks for firstname length > 5 and the age < 10
 match21 = rule1.matches(data2)
 
 print(match11)  # False
 print(match21)  # True
-
