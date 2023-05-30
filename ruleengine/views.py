@@ -1,5 +1,5 @@
 from django.shortcuts import render
-
+from ruleengine.rules import *
 # Create your views here.
 from django.http import HttpResponse
 import rule_engine
@@ -15,48 +15,34 @@ def index(request):
     
 
     # Create a rule to match a literal first name and apply a regex to the email
-    rule = rule_engine.Rule(
-        'first_name.length > 5 and age > 16'
-        
-    )
-    print(rule)
-    # Create a rule with dyanmic functionality and it can acheived using f strings
-    i = 10
-    rule1 = rule_engine.Rule(
-        f'first_name.length > 5 and age < {i}'
-    
-    )
+   
+
 
     # Check if the rule matches the JSON data
-    data1 = {
-        'first_name': 'Luke walker',
-        'last_name': 'Skywalker',
-        'email': 'luke@rebels.org',
-        'age': 25
-    }
-    data2 = {
-        'first_name': 'Luke',
-        'last_name': 'Vader',
-        'email': 'dvader@rebels.org',
-        'age': 1
-    }
-
-    match1 = rule.matches(data1)
-    match2 = rule.matches(data2)
-
-    match11 = rule1.matches(data1)
-    match21 = rule1.matches(data2)
-
-    print(match1)  # True
-    print(match2)  # False
-    # engine = rule_engine.engine()
-    # engine.matches(rule1)
     
-    print(match21)
+    data3 = {
+    'first_name': 'Luke walker',
+    'last_name': 'Skywalker',
+    'email': 'luke@rebels.org',
+    'age': 25,
+    'title': 'Harry Potter',
+    'released': '01-02-2002',
+    'publisher': 'JK Rowling',
+    'issue' : 0,
+    't_no_articles': None,
+    'volume_number': 'ejwhfje',
+    'publication_month' : 10,
+    'publication_year': '01-01-2023'
+    }
+    
+    res = rulescript(data3)
+   
+    
+    print(res)
     # Access the results
-    results = [match1,match2]
-    rules = [rule,rule1]
-    output = [{rule : match1},{rule1: match2}]
+    results = res
+    
+    output = [{rule1 : res[1]},{rule2: res[2]}]
     return render(request, 'test.html', {'output' : output})
 
 

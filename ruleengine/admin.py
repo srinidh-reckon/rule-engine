@@ -4,20 +4,20 @@ from django.contrib import admin
 
 
 from django.contrib import admin
-from .models import GenericRules, Rules
+from .models import GenericRule, Rule
 import rule_engine
 
-class GenericRulesAdmin(admin.ModelAdmin):
+class GenericRuleAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
-        # rule_engine.Rule(obj)  # Apply rules on the object
+        # rule_engine.Rule(obj)  # Apply Rule on the object
         super().save_model(request, obj, form, change)  # Save the model
 
-admin.site.register(GenericRules, GenericRulesAdmin)
+admin.site.register(GenericRule, GenericRuleAdmin)
 
-class RulesAdmin(admin.ModelAdmin):
+class RuleAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
-        # rule_engine.Rule(obj)  # Apply rules on the object
+        # rule_engine.Rule(obj)  # Apply Rule on the object
         super().save_model(request, obj, form, change)  # Save the model
 
-admin.site.register(Rules, RulesAdmin)
+admin.site.register(Rule, RuleAdmin)
 
