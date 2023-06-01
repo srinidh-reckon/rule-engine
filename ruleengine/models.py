@@ -15,7 +15,6 @@ class GenericRule(models.Model):
     
     def __str__(self):
         return self.name
-
 class Rule(models.Model):
     id = models.PositiveIntegerField(primary_key=True)
     class_name = models.CharField( max_length=50)
