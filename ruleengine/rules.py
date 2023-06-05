@@ -1,6 +1,6 @@
 import rule_engine
 from rule_engine import Rule
-
+from ruleengine.models import GenericRule
 import time
 from datetime import date
 # making sure the type is fixed
@@ -26,7 +26,8 @@ rule = rule_engine.Rule(
 # Create a rule with dyanmic functionality and it can acheived using f strings
 i = 4 
 attr = 'volume_number'
-
+today = date.today()
+print(today)
 rule1 = rule_engine.Rule(
     f'{attr}.length > {i}'
     
@@ -41,7 +42,7 @@ rule3 = rule_engine.Rule(
 )
 
 # rule4 = rule_engine.Rule(
-#     'publication_year == datetime.year'
+#     f'released == {today}'
 # )
 
 # rule_5 = rule_engine.Rule(
@@ -61,7 +62,7 @@ data1 = {
     't_no_articles': None,
     'volume_number': 'ejwhfje',
     'publication_month' : 10,
-    'publication_year': '01-01-2023'
+    'publication_year': '06-06-2023'
 }
 data2 = {
     'first_name': 'Luke jeffery',
@@ -91,3 +92,58 @@ def rulescript(data):
     d = rule3.matches(data)
 
     return [a,b,c,d]
+
+
+def convert_items_to_string(*args):
+    converted_args = []
+    
+    for arg in args:
+        if isinstance(arg, list) or isinstance(arg, tuple):
+            converted_items = [str(item) for item in arg]
+            converted_args.append(converted_items)
+        else:
+            converted_args.append(str(arg))
+    
+    return tuple(converted_args)
+
+def concatenate_strings(*args):
+    concatenated_strings = []
+
+    for arg in args:
+        if isinstance(arg, list) or isinstance(arg, tuple):
+            for item in arg:
+                if isinstance(item, str):
+                    concatenated_strings.append(item)
+        elif isinstance(arg, str):
+            concatenated_strings.append(arg)
+
+    return ''.join(concatenated_strings)
+
+# Example usage
+obj1 = 10
+obj2 = [1, 'Hello', 'World']
+obj3 = ('Concatenated', 'Strings')
+
+result = concatenate_strings(obj1, obj2,' ', obj3, ' and ', ['This', 'is', 'a', 'test'])
+print(result)
+
+def concatenate_strings_from_queryset(queryset, *args):
+    concatenated_strings = []
+
+    for obj in queryset:
+        for arg in args:
+            if hasattr(obj, arg) and isinstance(getattr(obj, arg), str):
+                concatenated_strings.append(getattr(obj, arg))
+            elif isinstance(arg, str):
+                concatenated_strings.append(arg)
+
+    return ''.join(concatenated_strings)
+
+
+
+gen = GenericRule.objects.all()
+
+test = concatenate_strings_from_queryset(gen,'left_atr',' ', 'operator', ' ', 'right_atr')
+print("hello")
+print(test)
+print("world")
