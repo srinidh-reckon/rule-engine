@@ -1,6 +1,6 @@
 import rule_engine
 from rule_engine import Rule
-from ruleengine.models import GenericRule
+# from ruleengine.models import Rule
 import time
 from datetime import date
 # making sure the type is fixed
@@ -141,9 +141,9 @@ def concatenate_strings_from_queryset(queryset, *args):
 
 
 
-gen = GenericRule.objects.all()
+# gen = Rule.objects.all()
 
-test = concatenate_strings_from_queryset(gen,'left_atr',' ', 'operator', ' ', 'right_atr')
-print("hello")
-print(test)
-print("world")
+# test = concatenate_strings_from_queryset(gen,'left_atr',' ', 'operator', ' ', 'right_atr')
+# print("hello")
+# print(test)
+# print("world")

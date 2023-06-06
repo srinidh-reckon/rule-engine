@@ -4,7 +4,7 @@ from ruleengine.rules import *
 from django.http import HttpResponse
 import rule_engine
 from rule_engine import Rule
-from ruleengine.models import GenericRule, Rule
+# from ruleengine.models import GenericRule, Rule
 # def index(request):
 #     return HttpResponse("Hello, world. You're at the polls index.")
 
@@ -36,16 +36,16 @@ def index(request):
     }
     
     res = rulescript(data1)
-    print(res)
-    gen = GenericRule.objects.all().values('rule_string')
-    print(gen)
-    result = str(gen[0]['rule_string'])
-    print(result)
-    test = rule_engine.Rule(result)
-    e = test.matches(data3)
-    print(e)
-    res.append(e)
-    rule5 = result
+    # print(res)
+    # gen = GenericRule.objects.all().values('rule_string')
+    # print(gen)
+    # result = str(gen[0]['rule_string'])
+    # print(result)
+    # test = rule_engine.Rule(result)
+    # e = test.matches(data3)
+    # print(e)
+    # res.append(e)
+    # rule5 = result
     # queryset = YourModel.objects.filter(your_conditions)
     # result_list = [str(item['rule_string']) for item in queryset]
 
@@ -53,7 +53,7 @@ def index(request):
     results = res
     print(res)
     
-    output = [{rule1 : res[1]},{rule2: res[2]},{rule5: res[4]}]
+    output = [{rule1 : res[1]},{rule2: res[2]}]
     
     
     return render(request, 'test.html', {'output' : output})
